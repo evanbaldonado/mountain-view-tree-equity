@@ -1,0 +1,56 @@
+#legend {
+    --demographics-legend-left-color: black;
+    --demographics-legend-right-color: var(--stanford-illuminating);
+    --income-legend-left-color: black;
+    --income-legend-right-color: white;
+    background-color: transparent;
+    position: absolute;
+    z-index: 2;
+    bottom: 2em;
+    left: 1em;
+    font-family: "Open Sans", sans-serif;
+    padding: 0;
+    display: inline-block;
+}
+
+#demographics-legend {
+    background: linear-gradient(90deg, var(--demographics-legend-left-color), var(--demographics-legend-right-color));
+    width: 100%;
+    padding: 0.5em;
+    min-width: 150px;
+    min-height: 35px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: var(--menu-border-radius);
+    display: none;
+}
+
+#income-legend {
+    background: linear-gradient(90deg, var(--income-legend-left-color), var(--income-legend-right-color));
+    width: 100%;
+    padding: 0.5em;
+    min-width: 150px;
+    min-height: 35px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: var(--menu-border-radius);
+    display: none;
+}
+
+#demographics-legend .left-label {
+    float: left;
+    color: var(--demographics-legend-right-color);
+}
+
+#demographics-legend .right-label {
+    float: right;
+    color: var(--demographics-legend-left-color);
+}
+
+#income-legend .left-label {
+    float: left;
+    color: var(--income-legend-right-color);
+}
+
+#income-legend .right-label {
+    float: right;
+    color: var(--income-legend-left-color);
+}

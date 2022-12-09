@@ -1,0 +1,78 @@
+#instructions-button {
+    background-color: var(--stanford-white);
+    color: var(--stanford-black);
+    font-weight: bold;
+    position: absolute;
+    z-index: 2;
+    bottom: 2em;
+    right: 1em;
+    height: 2em;
+    width: 2em;
+    text-align: center;
+    line-height: 2em;
+    vertical-align: middle;
+    border-radius: 2em;
+    border: 1px solid var(--stanford-40-percent-black);
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#instructions-button:hover {
+    background-color: #CBD8D1; /* 1/4 point between bay-light and 10-percent-black */
+    cursor: pointer;
+}
+
+#instructions-container {
+    display: none; /* hidden by default */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+    text-align: center;
+    background-color: var(--stanford-white);
+}
+
+#instructions {
+    display: inline-block;
+    width: 100%;
+    max-width: 760px;
+    padding: 1em;
+    padding-top: 2em;
+    text-align: left;
+}
+
+#instructions p, #instructions ul {
+    line-height: 1.75em;
+}
+
+#instructions-close-button {
+    position: fixed;
+    right: 1em;
+    top: 1em;
+    border-radius: 2em;
+    background-color: var(--stanford-50-percent-black);
+    color: var(--stanford-white);
+    font-weight: bold;
+    height: 1.5em;
+    width: 1.5em;
+    text-align: center;
+    line-height: 1.5em;
+    vertical-align: middle;
+    font-family: "Open Sans", sans-serif;
+}
+
+#instructions-close-button:hover {
+    background-color: var(--stanford-60-percent-black);
+    cursor: pointer;
+}
+
+#instructions a {
+    color: var(--stanford-digital-blue);
+}
+
+#instructions hr {
+    border-color: var(--stanford-20-percent-black);
+    border-style: solid;
+    border-width: 0.1em;
+}

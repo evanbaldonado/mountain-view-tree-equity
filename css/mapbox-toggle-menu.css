@@ -1,0 +1,88 @@
+:root {
+    --menu-border-radius: 0.25em;
+}
+
+#menu {
+    background-color: var(--stanford-white);
+    position: absolute;
+    z-index: 1;
+    top: 1em;
+    left: 1em;
+    border-radius: var(--menu-border-radius);
+    border: 1px solid var(--stanford-40-percent-black);
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .dropdown-button {
+    font-size: 13px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    padding: 10px;
+    text-decoration: none;
+    border-right: 1px solid var(--stanford-40-percent-black);
+    text-align: center;
+    background-color: var(--stanford-white);
+    color: var(--stanford-black);
+}
+
+.first-dropdown-button {
+    border-top-left-radius: var(--menu-border-radius);
+    border-bottom-left-radius: var(--menu-border-radius);
+}
+
+.last-dropdown-button {
+    border-top-right-radius: var(--menu-border-radius);
+    border-bottom-right-radius: var(--menu-border-radius);
+}
+
+.dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.dropdown:hover .dropdown-content {
+    background-color: var(--stanford-10-percent-black);
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-content a {
+    font-size: 13px;
+    display: inline-flex;
+    min-width: max-content;
+    width: 100%;
+    margin: 0;
+    padding: 1em 1em;
+    padding: 10px;
+    text-decoration: none;
+    border-right: 1px solid var(--stanford-40-percent-black);
+    border-left: 5px solid;
+    text-align: center;
+}
+
+/* Color for when the layer is hidden */
+.dropdown-content a {
+    background-color: var(--stanford-10-percent-black);
+    color: var(--stanford-black);
+}
+
+/* Color for when the layer is shown */
+.dropdown-content a.active {
+    background-color: #ADC6B9; /* halfway point between bay-light and 10-percent-black */
+    color: var(--stanford-black);
+}
+
+/* Color for hover */
+.dropdown-content a.active:hover, .dropdown-content a:hover {
+    background-color: #CBD8D1; /* 1/4 point between bay-light and 10-percent-black */
+    color: var(--stanford-black);
+}

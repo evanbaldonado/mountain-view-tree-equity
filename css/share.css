@@ -1,0 +1,117 @@
+#share-button {
+    background-color: var(--stanford-white);
+    color: var(--stanford-black);
+    font-weight: bold;
+    position: absolute;
+    z-index: 2;
+    bottom: 2em;
+    right: 4em;
+    height: 2em;
+    width: 2em;
+    text-align: center;
+    line-height: 2em;
+    vertical-align: middle;
+    border-radius: 2em;
+    border: 1px solid var(--stanford-40-percent-black);
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#share-button:hover {
+    background-color: #CBD8D1; /* 1/4 point between bay-light and 10-percent-black */
+    /* color: var(--stanford-white); */
+    cursor: pointer;
+}
+
+#share-container {
+    display: none; /* hidden by default */
+    background-color: rgba(0, 0, 0, 0.75); /* semi-transparent black */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#share {
+    background-color: var(--stanford-white);
+    display: inline-block;
+    width: 100%;
+    border-radius: 0.5em;
+    max-width: 360px;
+    padding: 1em;
+    padding-top: 1.5em;
+    text-align: left;
+    position: relative;
+}
+
+.share-url {
+    font-size: 0.5em;
+    line-height: 2em;
+    color: var(--stanford-70-percent-black);
+    padding: 1px 2px;
+}
+
+#share-close-button {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    border-radius: 2em;
+    background-color: var(--stanford-50-percent-black);
+    color: var(--stanford-white);
+    font-weight: bold;
+    height: 1.5em;
+    width: 1.5em;
+    text-align: center;
+    line-height: 1.5em;
+    vertical-align: middle;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#share-close-button:hover {
+    background-color: var(--stanford-60-percent-black);
+    cursor: pointer;
+}
+
+#share h2 {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+    font-size: 1.25em;
+    line-height: 1.25em;
+}
+
+.share-url-container {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+#share input {
+    height: 25px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+#share input[type=text] {
+    width: 75%;
+}
+
+#share input[type=button] {
+    text-align: center;
+    width: 23%;
+    padding: 1px 2px;
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    color: var(--stanford-digital-blue);
+}
+
+#share input[type=button]:hover {
+    cursor: pointer;
+}
+
+.share-url-description {
+    line-height: 1.5em;
+}

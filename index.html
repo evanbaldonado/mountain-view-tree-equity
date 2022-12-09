@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+		<title>Mountain View Tree Equity Map</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+		<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+		<link rel="stylesheet" href="https://evanbaldonado.github.io/stanford-color-palette/stanford-color-palette.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="css/full-screen-mapbox.css">
+		<link rel="stylesheet" href="css/mapbox-toggle-menu.css">
+		<link rel="stylesheet" href="css/instructions.css">
+		<link rel="stylesheet" href="css/legend.css">
+		<link rel="stylesheet" href="css/share.css">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<meta name="description" content="This interactive map is designed to help users find inequities in tree distribution in the City of Mountain View, California.">
+		<meta name="content-warnings" content="climate change, racism">
+	    <meta name="author" content="Evan Baldonado">
+
+		<!-- Open Graph (OG) properties from https://ogp.me/ -->
+	    <meta property="og:title" content="Mountain View Tree Equity Map">
+	    <meta property="og:description" content="This interactive map is designed to help users find inequities in tree distribution in the City of Mountain View, California.">
+	    <meta property="og:image" content="https://evanbaldonado.com/mountain-view-tree-equity/social-share.png">
+
+	    <!-- Twitter meta tags from https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup -->
+	    <meta name="twitter:card" content="summary">
+	    <meta property="twitter:title" content="Mountain View Tree Equity Map">
+	    <meta property="twitter:description" content="This interactive map is designed to help users find inequities in tree distribution in the City of Mountain View, California.">
+	    <meta property="twitter:image" content="https://evanbaldonado.com/mountain-view-tree-equity/social-share.png">
+	</head>
+	<body>
+		<nav id="menu"></nav>
+		<div id="share-button" title="share"><i class="fa fa-link"></i></div>
+		<div id="share-container">
+			<div id="share">
+				<div id="share-close-button" title="close"><i class="fa fa-close"></i></div>
+				<h2>Share</h2>
+				<div class="share-url-container">
+					<span class="share-url-description">Current map location/settings:</span>
+					<br/>
+					<input id="share-url-custom" class="share-url" type="text" readonly/>
+					<input id="share-url-custom-copy-link" class="share-url-copy-link" type="button" value="Copy link"/>
+				</div>
+				<div class="share-url-container">
+					<span class="share-url-description">Default map:</span>
+					<br/>
+					<input id="share-url-generic" class="share-url" type="text" readonly/>
+					<input id="share-url-generic-copy-link" class="share-url-copy-link" type="button" value="Copy link"/>
+				</div>
+			</div>
+		</div>
+		<div id="instructions-button" title="Instructions"><i class="fa fa-question"></i></div>
+		<div id="instructions-container">
+			<div id="instructions">
+				<div id="instructions-close-button" title="close"><i class="fa fa-close"></i></div>
+				<h1>Mountain View Interactive Tree Equity Map</h1>
+				<p>This interactive map is designed to help users find inequities in tree distribution in the City of Mountain View, California. It was created by <a href="https://evanbaldonado.com" title="evanbaldonado.com" target="_blank">Evan Baldonado</a> under the supervision of Dr. Suki Hoagland (Stanford University) and Brandon Whyte (City of Mountain View). Its source code is available on <a href="https://github.com/evanbaldonado/mountain-view-tree-equity" title="Map source code" target="_blank">Github</a> for anyone looking to replicate it for another city.</p>
+				<hr/>
+				<h2>Instructions</h2>
+				<ul>
+					<li>To toggle the display of a given layer of data (ex: tree canopy), hover over the dropdown buttons on the top left of the map page and then click the layer's button.
+					 	<ul>
+							<li>A green button indicates that its layer is currently displayed; a grey button indicates that its layer is currently hidden.</li>
+						</ul>
+					 </li>
+					<li>Pinch or use buttons to zoom in or out.</li>
+					<li>To share a customized link to the map (as you currently see it), use the share button at the right bottom of the map page.</li>
+				</ul>
+				<p>Questions? Feel free to reach out to <a href="mailto:mountainview@evanbaldonado.com" title="mountainview@evanbaldonado.com">mountainview@evanbaldonado.com</a>.</p>
+				<hr/>
+				<h2>Sources</h2>
+				<ul>
+					<li>Tree canopy: Mountain View (<a href="https://data-mountainview.opendata.arcgis.com/datasets/tree-canopy/" title="Mountain View's tree canopy dataset" target="_blank">CMV OpenGIS</a>)
+						<ul>
+							<li>I compressed the file using <a href="https://mapshaper.org/" title="mapshaper website" target="_blank">mapshaper.org</a>. The settings I used (Visvalingam/weight area; prevent shape removal; 2.5%) may slightly distort shapes but not delete them.</li>
+							<li>To further reduce the file size, I also removed a few unneeded properties. This does not affect what the user sees.</li>
+						</ul>
+					</li>
+					<li>City trees: Mountain View (<a href="https://data-mountainview.opendata.arcgis.com/datasets/trees/" title="Mountain View's city trees dataset" target="_blank">CMV OpenGIS</a>)
+						<ul>
+							<li>To reduce the file size, I also removed a few unneeded properties. This does not affect what the user sees.</li>
+						</ul>
+					</li>
+					<li>Block group-level income: U.S. Census Bureau's American Community Survey Table <a href="https://data.census.gov/table?q=B19013&g=0500000US06085$1500000" title="Table B19013: income" target="_blank">B19013</a> & Mountain View (<a href="https://data-mountainview.opendata.arcgis.com/datasets/MountainView::census-block-group-cmv/" title="Mountain View's block group dataset" target="_blank">CMV OpenGIS</a>)
+						<ul>
+							<li>Table B19013 is for "MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2021 INFLATION-ADJUSTED DOLLARS)."</li>
+							<li>I merged these sources using a Python script.</li>
+						</ul>
+					</li>
+					<li>Zoning districts: Mountain View (<a href="https://data-mountainview.opendata.arcgis.com/datasets/zoning-districts/" title="Mountain View's zoning districts dataset" target="_blank">CMV OpenGIS</a>)</li>
+					<li>Block-level demographics: U.S. Census Bureau (2020 Census)
+						<ul>
+							<li>Compiled by the Esri Demographics Team and uploaded <a href="https://livingatlas-dcdev.opendata.arcgis.com/maps/esri::california-census-2020-redistricting-blocks" title="California block-level demographics dataset" target="_blank">here</a> (<a href="https://www.arcgis.com/home/item.html?id=903453c84ade4f11aa3bce393af172d3" title="California block-level demographics dataset documentation" target="_blank">documentation</a>).</li>
+							<li>Sourced from the 2020 Public Law 94-171 (P.L. 94-171) tables.</li>
+							<li>I filtered the Esri Demographics Team's table to Santa Clara County using the Living Atlas and then filtered the downloaded GeoJSON to <a href="https://evanbaldonado.com/mountain-view-tree-equity/raw-data/mountain-view-census-block-data.geojson" title="Mountain View block-level demographics dataset" target="_blank">just Mountain View</a> (using QGIS' intersection tool).</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="map"></div>
+		<div id="legend">
+			<div id="demographics-legend" title="Demographics legend">
+				<span class="left-label">0%</span><span class="right-label">100%</span>
+			</div>
+			<br/>
+			<div id="income-legend" title="Income legend">
+				<span class="left-label">$0</span><span class="right-label">$250,000+</span>
+			</div>
+		</div>
+		<script src="js/mountain-view-map.js"></script>
+		<script src="js/demographics-layer.js"></script>
+		<script src="js/mapbox-toggle-layers.js"></script>
+		<script src="js/share.js"></script>
+		<script src="js/instructions.js"></script>
+	</body>
+</html>
