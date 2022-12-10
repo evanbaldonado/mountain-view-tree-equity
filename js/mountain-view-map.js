@@ -140,23 +140,6 @@ map.on("load", () => {
         }
     });
 
-    // Currently used as an additional layer underneath demographic data (not displayed by itself).
-    layerId = "mountain-view-fully-opaque-background";
-    map.addLayer({
-        "id": layerId,
-        "type": "fill",
-        "source": "mountain-view-boundaries",
-        "source-layer": "Mountain_View_Boundaries",
-        "layout": { },
-        "paint": {
-            "fill-color": "#000000",
-            "fill-opacity": 1
-        },
-        "layout": {
-            "visibility": urlParams.has(layerId) ? "visible" : "none"
-        }
-    });
-
     // Income
     layerId = "mountain-view-income";
     map.addLayer({
@@ -217,7 +200,7 @@ map.on("load", () => {
             "text-color": [
                 "case",
                 ["==", ["get", "income"], -1],
-                "white",
+                "black",
                 ["rgb", ["*", 255, ["round", ["-", 1, ["/", ["get", "income"], 250000]]]], ["*", 255, ["round", ["-", 1, ["/", ["get", "income"], 250000]]]], ["*", 255, ["round", ["-", 1, ["/", ["get", "income"], 250000]]]]]
             ],
         },

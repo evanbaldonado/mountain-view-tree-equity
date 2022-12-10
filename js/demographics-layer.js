@@ -12,7 +12,6 @@ function displayCombinedDemographics(combinedDemographics) {
     // Only add the layer if we have demographics to display.
     if (combinedDemographics.length <= 0) {
         document.getElementById("demographics-legend").style.display = "none";
-        map.setLayoutProperty("mountain-view-fully-opaque-background", "visibility", "none");
         return;
     }
 
@@ -30,12 +29,26 @@ function displayCombinedDemographics(combinedDemographics) {
         layerFillRGB["red"] = ["+", layerFillRGB["red"], ["*", layer100PercentRed, ["case", ["to-boolean", ["get", censusDemographic]], ["/", ["get", censusDemographic], 100], 0]]];
         layerFillRGB["green"] = ["+", layerFillRGB["green"], ["*", layer100PercentGreen, ["case", ["to-boolean", ["get", censusDemographic]], ["/", ["get", censusDemographic], 100], 0]]];
         layerFillRGB["blue"] = ["+", layerFillRGB["blue"], ["*", layer100PercentBlue, ["case", ["to-boolean", ["get", censusDemographic]], ["/", ["get", censusDemographic], 100], 0]]];
+        // textFillRGB["red"] = ["+", textFillRGB["red"], ["*", layer100PercentRed, ["case", ["to-boolean", ["get", censusDemographic]], ["-", 1, ["/", ["get", censusDemographic], 100]], 100]]];
+        // textFillRGB["green"] = ["+", textFillRGB["green"], ["*", layer100PercentGreen, ["case", ["to-boolean", ["get", censusDemographic]], ["-", 1, ["/", ["get", censusDemographic], 100]], 100]]];
+        // textFillRGB["blue"] = ["+", textFillRGB["blue"], ["*", layer100PercentBlue, ["case", ["to-boolean", ["get", censusDemographic]], ["-", 1, ["/", ["get", censusDemographic], 100]], 100]]];
+        //
         totalPercent = ["+", totalPercent, ["case", ["to-boolean", ["get", censusDemographic]], ["get", censusDemographic], 0]];
     }
+
+    let textFillRGB = {"red": 0, "green": 0, "blue": 0};
+    textFillRGB["red"] = ["*", ["-", 1, ["round", ["/", totalPercent, 100]]], 255];
+    textFillRGB["green"] = ["*", ["-", 1, ["round", ["/", totalPercent, 100]]], 255];
+    textFillRGB["blue"] = ["*", ["-", 1, ["round", ["/", totalPercent, 100]]], 255];
+
     totalPercent = ["concat", ["to-string", ["round", totalPercent]], "%"];
 
-    // Handle the background layer.
-    map.setLayoutProperty("mountain-view-fully-opaque-background", "visibility", "visible");
+    // Determine where anyone lives in the given area.
+    let doPeopleLiveHere = 0;
+    for (let censusDemographic in censusDemographicIDs) {
+        doPeopleLiveHere = ["+", doPeopleLiveHere, ["case", ["to-boolean", ["get", censusDemographic]], ["get", censusDemographic], 0]];
+    }
+    doPeopleLiveHere = [">=", doPeopleLiveHere , 0.5];
 
     // Create our layer.
     layerId = "mountain-view-combined-demographic";
@@ -47,9 +60,31 @@ function displayCombinedDemographics(combinedDemographics) {
         "paint": {
             "fill-color": [
                 "rgb",
-                layerFillRGB["red"], layerFillRGB["green"], layerFillRGB["blue"]
+                [
+                    "case",
+                    doPeopleLiveHere,
+                    layerFillRGB["red"],
+                    184
+                ],
+                [
+                    "case",
+                    doPeopleLiveHere,
+                    layerFillRGB["green"],
+                    58
+                ],
+                [
+                    "case",
+                    doPeopleLiveHere,
+                    layerFillRGB["blue"],
+                    75
+                ]
             ],
-            "fill-opacity": 0.8
+            "fill-opacity": [
+                "case",
+                doPeopleLiveHere,
+                1,
+                0.2
+            ]
         },
         "layout": {
             "visibility": "visible"
@@ -62,18 +97,39 @@ function displayCombinedDemographics(combinedDemographics) {
         "type": "symbol",
         "source": "mountain-view-census-block-data",
         "layout": {
-            "text-field": totalPercent,
+            "text-field": [
+                "case",
+                doPeopleLiveHere,
+                totalPercent,
+                "N/A"
+            ],
             "text-justify": "auto",
             "icon-image": ["get", "icon"]
         },
         "paint": {
-            // display as white if >0%, otherwise display as red
+            // display as black/white if >0% or N/A, otherwise display as red
             "text-color": [
                 "case",
-                ["==", totalPercent, "0%"],
-                "#B83A4B", // --stanford-cardinal-red-light
-                "white"
+                ["!", doPeopleLiveHere],
+                "black",
+                [
+                    "case",
+                    ["==", totalPercent, "0%"],
+                    "#B83A4B", // --stanford-cardinal-red-light
+                    [
+                        "rgb",
+                        textFillRGB["red"],
+                        textFillRGB["green"],
+                        textFillRGB["blue"]
+                    ]
+                ]
             ],
+            "text-opacity": [
+                "case",
+                doPeopleLiveHere,
+                1,
+                1 // TODO: 0
+            ]
         },
         "minzoom": 13
     });
